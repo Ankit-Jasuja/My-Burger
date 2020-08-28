@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
-import classes from "./BurgerIjgredients.module.css";
+import React from "react";
+import PropTypes from 'prop-types';
+import classes from "./BurgerIngredients.module.css";
 
 const BurgerIngredients = (props) => {
   let ingredient = null;
@@ -33,6 +34,10 @@ const BurgerIngredients = (props) => {
   }
 
   return ingredient;
+};
+
+BurgerIngredients.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 
 export default BurgerIngredients;
