@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Burger from "../../components/Burger/Burger";
 import BurgerControls from "../../components/Burger/BuildControls/BuildControls";
+import { object } from "prop-types";
 
 const INGREDIENT_PRICE = {
   salad: 2,
@@ -18,6 +19,19 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 4,
+    purchasable: false,
+  };
+
+  updatePurchaseState = (ingredients) => {
+    let arrayOfIngredientsNumber = Object.keys(ingredients).map((igKey) => {
+      return ingredients[igKey];
+    });
+
+    //adding array elements
+    const sum = arrayOfIngredientsNumber.reduce((sum, el) => {
+      return sum + el;
+    }, 0);
+    this.setState({ purchasable: sum > 0 });
   };
 
   addIngredientHandler = (type) => {
@@ -30,6 +44,7 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: updatedPrice,
     });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   removeIngredientHandler = (type) => {
@@ -43,13 +58,14 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: updatedPrice,
     });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   render() {
     const disabledInfo = { ...this.state.ingredients };
-     for (let key in disabledInfo) {
-       disabledInfo[key] = disabledInfo[key] <= 0;
-     }
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     return (
       <Fragment>
         <Burger burgerIngredients={this.state.ingredients} />
@@ -58,6 +74,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
           price={this.state.totalPrice}
+          purchasable={this.state.purchasable}
         ></BurgerControls>
       </Fragment>
     );
