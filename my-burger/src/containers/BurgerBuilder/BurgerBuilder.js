@@ -22,12 +22,12 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasable: false,
-    showOrderSummary:false
+    showOrderSummary: false,
   };
 
-showOrderSummaryHandler= ()=>{
-  this.setState({showOrderSummary:true})
-};
+  showOrderSummaryHandler = () => {
+    this.setState({ showOrderSummary: true });
+  };
 
   updatePurchaseState = (ingredients) => {
     let arrayOfIngredientsNumber = Object.keys(ingredients).map((igKey) => {
@@ -54,6 +54,10 @@ showOrderSummaryHandler= ()=>{
     this.updatePurchaseState(updatedIngredients);
   };
 
+  closeModalHandler = () => {
+    this.setState({ showOrderSummary: false });
+  };
+
   removeIngredientHandler = (type) => {
     const updatedIngredients = { ...this.state.ingredients };
     if (updatedIngredients[type] <= 0) return;
@@ -75,7 +79,9 @@ showOrderSummaryHandler= ()=>{
     }
     return (
       <Fragment>
-        <Modal show={this.state.showOrderSummary}><OrderSummary ingredients = {this.state.ingredients}/></Modal>
+        <Modal show={this.state.showOrderSummary} modalClosed = {this.closeModalHandler}>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger burgerIngredients={this.state.ingredients} />
         <BurgerControls
           ingredientAdded={this.addIngredientHandler}
@@ -83,7 +89,7 @@ showOrderSummaryHandler= ()=>{
           disabled={disabledInfo}
           price={this.state.totalPrice}
           purchasable={this.state.purchasable}
-          clicked = {this.showOrderSummaryHandler}
+          clicked={this.showOrderSummaryHandler}
         ></BurgerControls>
       </Fragment>
     );
