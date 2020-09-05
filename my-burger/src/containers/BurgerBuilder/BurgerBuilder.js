@@ -22,7 +22,12 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasable: false,
+    showOrderSummary:false
   };
+
+showOrderSummaryHandler= ()=>{
+  this.setState({showOrderSummary:true})
+};
 
   updatePurchaseState = (ingredients) => {
     let arrayOfIngredientsNumber = Object.keys(ingredients).map((igKey) => {
@@ -70,7 +75,7 @@ class BurgerBuilder extends Component {
     }
     return (
       <Fragment>
-        <Modal><OrderSummary ingredients = {this.state.ingredients}/></Modal>
+        <Modal show={this.state.showOrderSummary}><OrderSummary ingredients = {this.state.ingredients}/></Modal>
         <Burger burgerIngredients={this.state.ingredients} />
         <BurgerControls
           ingredientAdded={this.addIngredientHandler}
@@ -78,6 +83,7 @@ class BurgerBuilder extends Component {
           disabled={disabledInfo}
           price={this.state.totalPrice}
           purchasable={this.state.purchasable}
+          clicked = {this.showOrderSummaryHandler}
         ></BurgerControls>
       </Fragment>
     );
