@@ -16,6 +16,7 @@
     .SideDrawer{
         display: none;
     }
+}
 /* }side drawer should not be visble when scren width is more than 500px,should be visible only for mobiles */
 
 .Open{
