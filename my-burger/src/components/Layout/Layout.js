@@ -5,17 +5,24 @@ import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component {
   state = {
-    showSideDrawer: true,
+    showSideDrawer: false,
   };
 
   SideDrawerClosedHandler = () => {
-    this.setState({ showSideDrawer: false });
+    this.setState((prevState)=>{
+      return {showSideDrawer:!prevState.showSideDrawer};
+    });
   };
 
+  SideDrawerToggleHandler = () => {
+    this.setState({ showSideDrawer: !this.state.showSideDrawer });
+  };
+
+  
   render() {
     return (
       <Fragment>
-        <Toolbar></Toolbar>
+        <Toolbar drawerToggleClicked={this.SideDrawerClosedHandler}></Toolbar>
         <SideDrawer
           closed={this.SideDrawerClosedHandler}
           open={this.state.showSideDrawer}
