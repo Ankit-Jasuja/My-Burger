@@ -1,6 +1,10 @@
 import React, { Fragment, Component } from "react";
 import Button from "../../UI/Button/Button";
 
+
+//this does not have to be a class component,this just for reference to understand 
+//when this component renders
+
 class OrderSummary extends Component {
   componentWillUpdate() {
     console.log("componentWillUpdate method is called before render() "+
