@@ -29,7 +29,8 @@ class BurgerBuilder extends Component {
       .get("https://react-my-burger-9008d.firebaseio.com/ingredients.json")
       .then((response) => {
         this.setState({ ingredients: response.data });
-      });
+      })
+      .catch((error) => {});
   };
 
   showOrderSummaryHandler = () => {
